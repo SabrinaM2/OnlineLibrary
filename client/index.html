@@ -1,0 +1,104 @@
+<!doctype>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>Bibliothèque Efrei</title>
+        <!-- Load Vue followed by Vue Router -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/http-vue-loader/src/httpVueLoader.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-router/dist/vue-router.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <header>
+                <div class="header_left">
+                    <p v-if="connected">{{user.prenom}} {{user.nom}}</p>
+                    <img v-on:click="logout" v-if="connected" src="./assets/logout.svg">
+                </div>
+                <div class="header_center">
+                    <img class="logo_efrei" src="./assets/logo_efrei_pantheon.svg">
+                    <h1>Bibliothèque Efrei</h1>
+                </div>
+                <div class="header_right">
+                    <router-link to="/panier"><img class="logo_panier" src="./assets/panier.svg"></router-link>
+                </div>
+            </header>
+          <main>
+            <router-view
+              :articles="articles"
+              :panier="panier"
+              :invaliddata="invaliddata"
+              :user="user"
+              :connected="connected"
+              @add-article="addArticle"
+              @delete-article="deleteArticle"
+              @update-article="updateArticle"
+              @login="login"
+              @logout="logout"
+              @signin="signin"
+            ></router-view>
+          </main>
+        </div>
+        <script src="/vue-application.js"></script>
+    </body>
+</html>
+
+<style>
+    #app {
+        font-family: Avenir, Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        font-family: "Calisto MT";
+        padding-left: 15px;
+        padding-right: 15px;
+        background-color: #04729d;
+        color: white;
+        align-items: center;
+    }
+    .logo_efrei {
+        max-width: 130px;
+        height:auto;
+        margin-right: 15px;
+        filter: invert(99%) sepia(7%) saturate(138%) hue-rotate(312deg) brightness(116%) contrast(100%);
+    }
+
+    .logo_panier {
+        max-width: 80px;
+        height:auto;
+        margin-right: 15px;
+        filter: invert(99%) sepia(7%) saturate(138%) hue-rotate(312deg) brightness(116%) contrast(100%);
+    }
+
+    .header_left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 25px;
+        width: 300px;
+    }
+
+    .header_left img {
+        margin-left: 15px;
+        width: 25px;
+        height: auto;
+        filter: invert(99%) sepia(7%) saturate(138%) hue-rotate(312deg) brightness(116%) contrast(100%);
+    }
+
+    .header_center {
+        display: flex;
+        flex-direction: row;
+        padding-left: -40px;
+    }
+
+    .header_right {
+
+    }
+</style>
